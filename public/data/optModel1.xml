@@ -1,0 +1,199 @@
+﻿<SASReport xmlns="http://www.sas.com/sasreportmodel/bird-4.1.2" label="optModel1" nextUniqueNameIndex="22" lastModifiedApplication="SAS Visual Analytics 8.3.1" createdApplication="SAS Visual Analytics 8.3.1" dateModified="2018-11-19T14:21:29Z" dateCreated="2018-11-19T12:54:26Z" createdVersion="4.1.2" createdLocale="en">
+    <DataDefinitions>
+        <ParentDataDefinition name="dd14" dataSource="ds7" status="executable" childQueryRelationship="independent">
+            <BusinessItems>
+                <RelationalDataItem name="bi18" base="bi8" />
+                <RelationalDataItem name="bi21" base="bi9" />
+            </BusinessItems>
+            <DataDefinition type="multidimensional" name="dd15" dataSource="ds7">
+                <MultidimensionalQuery detail="false">
+                    <Axes>
+                        <Axis type="column">
+                            <BusinessItem ref="bi18" />
+                        </Axis>
+                        <Axis type="row">
+                            <BusinessItem ref="bi21" />
+                        </Axis>
+                    </Axes>
+                    <ColumnSortItems>
+                        <SortItem ref="bi18" sortDirection="ascending" />
+                    </ColumnSortItems>
+                </MultidimensionalQuery>
+                <ResultDefinitions>
+                    <ResultDefinition name="dd16" maxRowsBehavior="truncate" maxRowsLookup="graphDefault" purpose="primary" />
+                </ResultDefinitions>
+            </DataDefinition>
+        </ParentDataDefinition>
+    </DataDefinitions>
+    <DataSources>
+        <DataSource type="relational" name="ds7" label="OUTPUT_SOL">
+            <CasResource table="OUTPUT_SOL" library="Public" locale="en_US" server="cas-shared-default" />
+            <BusinessItemFolder>
+                <DataItem name="bi8" xref="products" />
+                <DataItem name="bi9" xref="Qty" />
+                <PredefinedDataItem name="bi10" label="Frequency" format="COMMA12." usage="quantitative" calculation="totalCount" />
+                <PredefinedDataItem name="bi11" label="Frequency Percent" format="PERCENT20.2" usage="quantitative" calculation="totalCountPercent" />
+            </BusinessItemFolder>
+        </DataSource>
+    </DataSources>
+    <VisualElements>
+        <Graph name="ve13" data="dd14" label="Bar - products 1" resultDefinitions="dd16" supplementalVisuals="ve17" graphType="bar">
+            <EditorProperties>
+                <Property key="isAutoLabel">true</Property>
+            </EditorProperties>
+            <Title auto="true"><P><DynamicSpan key="bird.autotitle.template.oneByTwo.fmt.txt"><Substitutions><Substitution variables="bi9" valueType="label" /><Substitution variables="bi8" valueType="label" /></Substitutions></DynamicSpan></P></Title>
+<![CDATA[<StatGraph border="false" opaque="false" includeMissingDiscrete="true" selectionMode="multiple" missingValueDisplay="autolabel">
+    <PadAttrs top="0px" bottom="0px" left="0px" right="0px"/>
+    <Meta>
+        <DynVars>
+            <DynVar name="CATEGORY" description="CATEGORY_VAR" required="true" assignedType="any" type="character">
+                <DefaultValues>
+                    <Value>dd16.bi18</Value>
+                </DefaultValues>
+            </DynVar>
+            <DynVar name="RESPONSE" description="MEASURE_VAR" required="true" assignedType="any" type="numeric" multiplesAllowed="true">
+                <DefaultValues>
+                    <Value>dd16.bi21</Value>
+                </DefaultValues>
+            </DynVar>
+            <DynVar name="GROUP" description="SUBGROUP_VAR" required="false" type="character"/>
+            <DynVar name="COLUMN" description="HORIZONTAL_SERIES_VAR" required="false" type="character" multiplesAllowed="true"/>
+            <DynVar name="ROW" description="VERTICAL_SERIES_VAR" required="false" type="character" multiplesAllowed="true"/>
+            <DynVar name="TIP" description="TIP_VAR" required="false" assignedType="numeric" type="any" multiplesAllowed="true">
+                <DefaultValues>
+                    <Value>dd16.bi18</Value>
+                    <Value>dd16.bi21</Value>
+                </DefaultValues>
+            </DynVar>
+            <DynVar name="KEY_FRAME" description="ANIMATION" required="false" type="time" multiplesAllowed="false"/>
+            <DynVar name="HIDDEN" description="HIDDEN_VAR" required="false" type="character" multiplesAllowed="true"/>
+        </DynVars>
+        <DataNameMap>
+            <Entry model="LayoutDataMatrix_10" data="dd16"/>
+        </DataNameMap>
+    </Meta>
+    <LayoutDataMatrix name="LayoutDataMatrix_10" rowVars="ROW" columnVars="COLUMN">
+        <LayoutPrototypeOverlay2D>
+            <BarChartParm name="DRM24" tipListPolicy="replace" _stmt="barchart" groupDisplay="cluster" orient="vertical" stat="none" tip="TIP" category="CATEGORY" responseVars="RESPONSE" group="GROUP"/>
+            <XAxisOpts name="AxisOptions_101" display="LABEL LINE TICKS TICKVALUES" gridDisplay="on" reverse="false">
+                <DiscreteOpts tickValueFitPolicy="staggertruncatedrop" sortOrder="data" tickValueAppearance="auto"/>
+                <LinearOpts>
+                    <TickValueFormatOpts extractScale="true"/>
+                </LinearOpts>
+            </XAxisOpts>
+            <YAxisOpts display="LABEL LINE TICKS TICKVALUES" gridDisplay="on" reverse="false">
+                <DiscreteOpts sortOrder="data"/>
+                <LinearOpts>
+                    <TickValueFormatOpts extractScale="true"/>
+                </LinearOpts>
+            </YAxisOpts>
+        </LayoutPrototypeOverlay2D>
+    </LayoutDataMatrix>
+    <LayoutGlobalLegend legendTitlePosition="top" allowCollapsed="true">
+        <AutoLegend>
+            <GraphNames>
+                <Value>DRM24</Value>
+            </GraphNames>
+        </AutoLegend>
+    </LayoutGlobalLegend>
+    <Animation keyFrame="KEY_FRAME"/>
+    <OverviewAxis maxPlotSize="60px" minPlotSize="35px" visible="off" axis="AxisOptions_101"/>
+</StatGraph>]]>
+        </Graph>
+        <Table name="ve17" data="dd14" resultDefinitions="dd16" columnSizing="autoFill">
+            <Columns>
+                <Column variable="bi18" />
+                <Column variable="bi21" />
+            </Columns>
+        </Table>
+    </VisualElements>
+    <View>
+        <Header>
+            <MediaContainer target="mt2">
+                <ResponsiveLayout overflow="scroll" orientation="horizontal">
+                    <Weights unit="percent" mediaTarget="mt5">
+                        <Weight value="100%" />
+                    </Weights>
+                    <Weights unit="percent" mediaTarget="mt4">
+                        <Weight value="100%" />
+                    </Weights>
+                    <Weights unit="percent" mediaTarget="mt3">
+                        <Weight value="100%" />
+                    </Weights>
+                </ResponsiveLayout>
+            </MediaContainer>
+        </Header>
+        <Section name="vi6" label="Page 1">
+            <Header>
+                <MediaContainer target="mt2">
+                    <ResponsiveLayout overflow="scroll" orientation="horizontal">
+                        <Weights unit="percent" mediaTarget="mt5">
+                            <Weight value="100%" />
+                        </Weights>
+                        <Weights unit="percent" mediaTarget="mt4">
+                            <Weight value="100%" />
+                        </Weights>
+                        <Weights unit="percent" mediaTarget="mt3">
+                            <Weight value="100%" />
+                        </Weights>
+                    </ResponsiveLayout>
+                </MediaContainer>
+            </Header>
+            <Body>
+                <MediaContainer target="mt2">
+                    <ResponsiveLayout overflow="fit" orientation="vertical">
+                        <Weights unit="percent" mediaTarget="mt5">
+                            <Weight value="100%" />
+                        </Weights>
+                        <Weights unit="percent" mediaTarget="mt4">
+                            <Weight value="100%" />
+                        </Weights>
+                        <Weights unit="percent" mediaTarget="mt3">
+                            <Weight value="100%" />
+                        </Weights>
+                    </ResponsiveLayout>
+                    <Visual name="vi12" ref="ve13">
+                        <ResponsiveConstraint>
+                            <WidthConstraint>
+                                <Width mediaTarget="mt3" flexibility="flexible" preferredSizeBehavior="ignore" />
+                            </WidthConstraint>
+                            <HeightConstraint>
+                                <Height mediaTarget="mt3" flexibility="flexible" preferredSizeBehavior="ignore" />
+                            </HeightConstraint>
+                        </ResponsiveConstraint>
+                    </Visual>
+                </MediaContainer>
+            </Body>
+        </Section>
+    </View>
+    <MediaSchemes>
+        <MediaScheme name="ms1">
+            <BaseStylesheetResource theme="marine" />
+            <Stylesheet></Stylesheet>
+        </MediaScheme>
+    </MediaSchemes>
+    <MediaTargets>
+        <MediaTarget name="mt2" scheme="ms1" windowSize="default" />
+        <MediaTarget name="mt3" scheme="ms1" windowSize="small" />
+        <MediaTarget name="mt4" scheme="ms1" windowSize="medium" />
+        <MediaTarget name="mt5" scheme="ms1" windowSize="large" />
+    </MediaTargets>
+    <Properties>
+        <Property key="lastSection">vi6</Property>
+        <Property key="displayDataSource">ds7</Property>
+    </Properties>
+    <ExportProperties>
+        <Export destination="pdf">
+            <Property value="true" key="showCoverPage" />
+            <Property value="true" key="showPageNumbers" />
+        </Export>
+    </ExportProperties>
+    <History>
+        <Versions>
+            <Version key="4.1.2" lastDate="2018-11-19T12:54:26Z" />
+        </Versions>
+    </History>
+    <SASReportState>
+        <View />
+    </SASReportState>
+</SASReport>
