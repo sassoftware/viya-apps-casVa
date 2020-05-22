@@ -2,6 +2,7 @@
 
 # usage: register [-f flow] [-c clientId] [-s clientSecret] [-r redirect_url]
 USAGE="Usage: register [-f flow] [-c clientId] [-s clientSecret] [-r redirect_url]"
+# example usage to create a password secret: sudo ./regclientHttps.sh -f password -c {client} -s {secret}
 logon_url=https://localhost
 
 while getopts hf:c:s:r: o
@@ -64,6 +65,8 @@ echo "consulToken=$CONSUL_TOKEN"
 
 url1="${logon_url}/SASLogon/oauth/clients/consul?callback=false&serviceId=${clientId}";
 adminToken_response=$(curl -X POST "${url1}" -H "X-Consul-Token: ${CONSUL_TOKEN}")
+# Comment prior line and uncomment following line if you need to include the path to the cert
+#adminToken_response=$(curl -X POST "${url1}" -H "X-Consul-Token: ${CONSUL_TOKEN}" --cacert /etc/pki/tls/certs/certnew.pem)
 echo "** Waiting for administrator  token..."
 while [[ $adminToken_response == "" ]]
 do
@@ -78,7 +81,9 @@ echo "Now registering the client"
 curl -v -X POST "https://localhost/SASLogon/oauth/clients" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer ${TOKEN}" \
-     -d "${ldata}"
+    -d "${ldata}" \
+# Uncomment following line if you need to include the path to the cert
+#    --cacert /etc/pki/tls/certs/certnew.pem
 echo "end of register script"
 
 
