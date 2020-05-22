@@ -60,6 +60,8 @@ The redirect specification has to be of this form:
 
 For your convenience a shell script is included in this repository. ssh to the Viya server as an admin and run this script. 
 
+We have also included a version of this to be used with secured Viya deployments: regclientHttps.sh.  
+
 Usage:
 
 
@@ -83,6 +85,8 @@ sudo sh regclient.sh  [-f flow] [-c clientId] [-s client_secret] [-r redirect_ur
 sudo regclient -f implicit -c blogger -r http://localhost:5006/optmodel/index.html 
 
 sudo regclient -f authorization_code -c blogger1 -s sunrise -r http://localhost:5006/optmodel
+
+example usage to create a password secret: sudo ./regclientHttps.sh -f password -c {client} -s {secret}
 
 
 # Installation
