@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+  ~ /* ------------------------------------------------------------------------------------
+  ~  * Copyright (c) SAS Institute Inc.
+  ~  *  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  * http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  *  Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~ * limitations under the License.
+  ~ ----------------------------------------------------------------------------------------*/
+  ~
+  -->
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+
+		<script
+			crossorigin
+			src="https://unpkg.com/react@16/umd/react.production.min.js"
+		></script>
+		<script
+			crossorigin
+			src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+		></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+		<script src="https://unpkg.com/@sassoftware/restaf@rc1/dist/restaf.js"></script>
+		<script src="https://unpkg.com/@sassoftware/restaflib@rc1/dist/restaflib.min.js"></script>
+		<script src="/appenv"></script>
+
+	</head>
+	<script>
+
+		function startapp() {
+			// window.location.replace(`${window.location.protocol}//${window.location.host}/${LOGONPAYLOAD.appName}`);
+			 let url = `${window.location.protocol}//${window.location.host}/${LOGONPAYLOAD.appName}`
+			 window.location.replace(url);
+
+		}
+	</script>
+	<body>
+		<h1 id="head">What is next?</h1>
+		<button onclick="startapp()">Logon</button>
+		
+	</body>
+</html>

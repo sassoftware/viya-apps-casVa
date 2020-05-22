@@ -15,9 +15,9 @@
  * ---------------------------------------------------------------------------------------
  *
  */
-async function appInit(store, appEnv) {
+async function appInit(store, appEnv, logonPayload) {
     let actionSets = ['sccasl']
-    await store.logon(null);
+    await store.logon(logonPayload);
     let services = await store.addServices('casManagement', 'reports', 'reportTransforms');
     let casManagement = services.casManagement;
     let servers = await store.apiCall(casManagement.links('servers'));
@@ -39,6 +39,6 @@ async function appInit(store, appEnv) {
     
     // create temporary copy of template data and template report
     await vaSetup(store, session, services, appEnv); 
-    return (session);
+    return ({ session: session, services: services });
 }
 

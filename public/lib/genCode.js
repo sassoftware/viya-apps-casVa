@@ -21,6 +21,7 @@ function genCode(budget, appEnv) {
 	let pgm = optCode(budget, appEnv)
     let caslStatements = `
 
+	
 	    action table.dropTable/
 			caslib='${appEnv.work.caslib}' name='${appEnv.work.table}' quiet=TRUE;
 		
@@ -28,7 +29,7 @@ function genCode(budget, appEnv) {
 		action table.deletesource / 
 		   caslib='${appEnv.work.caslib}' source='${appEnv.work.table}.sashdat' quiet=TRUE;
 		
-
+    
 	    /* Assumption: All necessary input tables are in memory */
 		pgm = "${pgm}";
 		

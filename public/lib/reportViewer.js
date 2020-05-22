@@ -19,9 +19,11 @@
 async function reportViewer(store, reportServices, appEnv){
     let {reports, reportTransforms } = reportServices;
 
+    debugger;
     // If temporary report exists delete it - allows for potential new template report
     let reportsList = await getReport( store, reports, `${APPENV.work.report}`);
-    if ( reportsList !== null ) {
+    if (reportsList !== null) {
+        debugger;
         await store.apiCall(reportsList.itemsCmd(reportsList.itemsList(0), 'delete'));
       };
 
@@ -31,7 +33,7 @@ async function reportViewer(store, reportServices, appEnv){
         throw {Error: `${appEnv.template.report} not found`};
     }
     let reportUri = reportsList.itemsCmd(reportsList.itemsList(0), 'self', 'link', 'uri');
-
+    debugger;
     // setup information for the reportTransforms service
     // reportTransforms service creates a new copy of the report and associates the new table with it
     let data = {
@@ -72,15 +74,17 @@ async function reportViewer(store, reportServices, appEnv){
 
     // get the unique id of the new report
     let id = newReport.items('resultReport', 'id');
+    debugger;
     reportUri = `/reports/reports/${id}`;
 
     // create src parameter for the iframe
-    let options = "&appSwitcherDisabled=true&reportViewOnly=true&printEnabled=true&sharedEnabled=true&informationEnabled=true&commentEnabled=true&reportViewOnly=true";
-    let href = `${appEnv.host}/SASReportViewer/?reportUri=${reportUri}${options}`;
+    //let options = "&appSwitcherDisabled=true&reportViewOnly=true&printEnabled=true&sharedEnabled=true&informationEnabled=true&commentEnabled=true&reportViewOnly=true";
+    //let href = `${appEnv.host}/SASReportViewer/?reportUri=${reportUri}${options}`;
    
     // save href in appEnv to use for displaying VA report in an iframe
-    appEnv.href = href;
-    console.log(href);
+
+    appEnv.href = reportUri;
+    console.log(reportUri);
 }
 
 // Search the report folders for a report by name

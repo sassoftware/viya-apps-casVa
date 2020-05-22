@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "app": "node app.js app.env",
-    "start": "npx restaf-server --env=app.env --appenv=appEnv.js",
+    "start": "npx restaf-server --env=app.env --docker=Dockerfile --appenv=appEnv.js",
+    "upload": "cd ./public/data && npx @sassoftware/viyacaddy",
     "indocker": "npx restaf-server --env=appdocker.env --appenv=appEnv.js"
   },
   "keywords": [
@@ -23,6 +24,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "query-string": "^6.2.0",
-    "restaf-server": "^5.1.0"
+    "@sassoftware/restaf-server": "latest"
   }
 }

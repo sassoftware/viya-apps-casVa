@@ -22,14 +22,20 @@
     <head>
         <meta charset="UTF-8">
 
-        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+         <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+
+        <script type="text/javascript" src="https://unpkg.com/@sassoftware/restaf/dist/restaf.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@sassoftware/restaflib/dist/restaflib.min.js"></script>
+        <script type="text/javascript" src="/viyaapp/appenv"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="/shared/app.css">
+        <script async src="https://unpkg.com/@sassoftware/va-report-components@0.4/dist/umd/va-report-components.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
-        <script src="https://unpkg.com/restaf/dist/restaf.min.js"></script>
-
-
+    
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
 
@@ -47,14 +53,14 @@
 
         <!-- App specific functions -->
         <link rel="stylesheet" type="text/css" href="/css/app.css">
-        <script type="text/javascript" src="/appenv"></script>
-        <script src="/lib/genCode.js"></script>
-        <script src="/lib/appInit.js"></script>
-        <script src="/lib/vaSetup.js"></script>
-        <script src="/lib/optimize.js"></script>
-        <script src="/lib/optCode.js"></script>
-        <script type="text/babel" src="/lib/casTableViewer.js"></script>
-        <script src="/lib/reportViewer.js"></script>
+        <script type="text/javascript" src="/viyaapp/appenv"></script>
+        <script src="/viyaapp/lib/genCode.js"></script>
+        <script src="/viyaapp/lib/appInit.js"></script>
+        <script src="/viyaapp/lib/vaSetup.js"></script>
+        <script src="/viyaapp/lib/optimize.js"></script>
+        <script src="/viyaapp/lib/optCode.js"></script>
+        <script type="text/babel" src="/viyaapp/lib/casTableViewer.js"></script>
+        <script src="/viyaapp/lib/reportViewer.js"></script>
 
         <style>
             .container {
@@ -116,8 +122,9 @@
         <script>
             debugger;
             let session = null;
+            let services = null;
             APPENV.href = null;
-            let newOptimization = false;
+            let newOptimization = true;
 
             // Initialize restaf 
             // restaf does the heavy lifting
@@ -132,9 +139,10 @@
                 document.getElementById('reportButton').disabled = true;
                 document.getElementById('tableButton').disabled  = true;
                 // Initialize app
-                appInit(store, APPENV)
+                appInit(store, APPENV, LOGONPAYLOAD)
                     .then((r) => {
-                        session = r;// for executing cas actions
+                        session = r.session;// for executing cas actions
+                        services = r.services;
                     })
                     .catch(err => {
                         alert(JSON.stringify(err, null, 4))
@@ -144,11 +152,26 @@
            
             // Respond to user request for viewing the VA report
             function onReport() {
+                objectElement =  document.getElementById('reportViewer');
+                debugger;
                 document.getElementById('reportViewer').style.display = 'block';
                 document.getElementById('tableViewer').style.display = 'none';
                 if ( newOptimization === true ) {
-                   document.getElementById('reportViewer').setAttribute('src', APPENV.href);
-                   newOptimization = false;
+                    reportViewer(store, services, APPENV)
+                      .then (() => {
+                        console.log(APPENV.href);
+                        objectElement =  document.getElementById('reportViewer');
+                        objectElement.authenticationType ="credentials";
+                        objectElement.url           = LOGONPAYLOAD.host;
+                        objectElement.reportUri     = APPENV.href;
+                        
+                        objectElement.style.width   = '80vh';
+                        objectElement.style.height  = '80vh';
+                        objectElement.style.display = 'block';
+                    
+                        newOptimization = false;
+                      })
+                      .catch(err => console.log(JSON.stringify(err, null,4)));
                 }
             }
 
@@ -227,7 +250,7 @@
                             <div id="tableViewer" class="componentIframe">
                                 <p> Your result...</p>
                             </div>
-                            <iframe id="reportViewer" class="componentIframe" allowfullscreen style="display: none;"></iframe>
+                            <sas-report id="reportViewer"></sas-report>
                         </div>
                     </div>
                 </div>

@@ -29,35 +29,7 @@ ENV APPHOST=0.0.0.0
 #
 # The port on which this app is expected to run
 # 8080 is probably taken so use any valid available port no.
-#
-ENV APPPORT=5060
 
-#
-# You can turn off OAUTH2 base authentication
-#
-ENV OAUTH2=NO
-
-#
-# If you want the server to act like a proxy server to the Viya Server
-# If this set to YES, rafserver will override OAUTH2 to be YES
-#
-ENV PROXYSERVER=NO
-
-#
-# is SAS server SSL enabled
-#
-ENV SAS_SSL_ENABLED=NO
-
-#
-# servers and clientid
-#
-
-ENV VIYA_SERVER=http://myviyaserver
-# 
-# set the redirect to http://localhost:APPPORT/optmodel/main.html
-ENV AUTHFLOW=implicit
-ENV CLIENTID=blogger
-ENV REDIRECT=index.html
 
 ENV TEMPLATECASLIB=Public
 ENV TEMPLATETABLE=OUTPUT_SOL

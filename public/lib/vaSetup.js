@@ -44,6 +44,7 @@ async function vaSetup(store, session, services, appEnv) {
             };
             
         /* Drop the table to force report to reload the new table */
+        
         action table.dropTable/
             caslib='${appEnv.work.caslib}' name='${appEnv.work.table}' quiet=TRUE;
         
@@ -58,6 +59,6 @@ async function vaSetup(store, session, services, appEnv) {
     await store.runAction(session, payload);
 
     // Create temporary copy of the template report
-    await reportViewer(store, services, appEnv);
+    // await reportViewer(store, services, appEnv);
     return true;
 }
