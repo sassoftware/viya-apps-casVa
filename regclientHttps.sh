@@ -81,9 +81,9 @@ echo "Now registering the client"
 curl -v -X POST "https://localhost/SASLogon/oauth/clients" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer ${TOKEN}" \
-    -d "${ldata}" \
-# Uncomment following line if you need to include the path to the cert
-#    --cacert /etc/pki/tls/certs/certnew.pem
+    -d "${ldata}" --cacert /etc/pki/tls/certs/certnew.pem
+# Comment / Uncomment the end of the previous line based on if you need to include the path to the cert
+
 echo "end of register script"
 
 
