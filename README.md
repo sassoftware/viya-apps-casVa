@@ -1,3 +1,5 @@
+**Archived project: This project is no longer under actively developement and was archived on 2024-09-25.**
+
 # OptModel1
 ## Overview
 This repository contains a simple demo showing the integration of SAS REST API, CAS actions, and Visual Analytics reports. [restaf](https://github.com/sassoftware/restaf) is used to make the code simple and easy to maintain. The OptModel1 application uses the runOptmodel CAS action to solve the optimization problem.
